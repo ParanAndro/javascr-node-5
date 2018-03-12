@@ -1,5 +1,6 @@
 var http = require('http'),
 	fs = require('fs'),
+	express = require('express'),
 	server = http.createServer()
 
 
@@ -8,16 +9,16 @@ server.on('request', function (request, response) { //eventEmmiter ustaiony na n
     if (request.method === 'GET' && request.url === '/index') {
     	fs.readFile('./index.html', 'utf-8', function(err, data) {
     	response.write(data);
-    		response.end();
     	});
     } else {
+    	var app = express();
     	response.statusCode = 404;
     	response.write('<h1>404: Zła ścieżka!<h1>');
-    	fs.readFile('./cup.jpg', function(err, data) {
-    		if (err) throw err;
-    		response.write(data);
-    	});
-    		response.end();
+    	app.get(/*'?'*/, function(req, res) {
+			res.sendFile('./cup.jpg');
+			console.log('ok');
+	});
+    	 response.end();
     }
 });
 server.listen(9000);
