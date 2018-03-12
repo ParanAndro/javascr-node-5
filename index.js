@@ -17,8 +17,9 @@ server.on('request', function (request, response) { //eventEmmiter ustaiony na n
     	app.get(/*'?'*/, function(req, res) {
 			res.sendFile('./cup.jpg');
 			console.log('ok');
+            response.end();
 	});
-    	 response.end();
+    	 
     }
 });
 server.listen(9000);
